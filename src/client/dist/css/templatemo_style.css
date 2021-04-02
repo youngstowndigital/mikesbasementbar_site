@@ -339,11 +339,12 @@ p {
 
 #filters {
   text-align: center;
+  padding: 0px;
 }
 
 #filters ul {
   margin: 0px;
-  padding: 0px;
+  padding: 0px !important;
 }
 
 #filters li {
