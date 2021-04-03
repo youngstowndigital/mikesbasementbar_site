@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuItem from './MenuItem';
+import { getMenuItems, getMenuCategories } from '../apiUtil';
 
 const Menu = () => {
+    const [menuItems, setMenuItems] = useState([]);
+    const [menuCategories, setMenuCategories] = useState([]);
+    const [selectedMenuItems, setSelectedMenuItems] = useState([]);
+
+    const loadMenuItems = async () => {
+        try {
+            const items = await getMenuItems();
+            setMenuItems(items);
+            setSelectedMenuItems(items);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    const loadMenuCategories = async () => {
+        setMenuCategories(await getMenuCategories());
+    }
+
+    useEffect(() => {
+        loadMenuCategories();
+        loadMenuItems();
+    }, [])
+
+    const changeCategory = (e) => {
+        const category = e.target.id.toLowerCase();
+        setSelectedMenuItems(menuItems.filter(item => item.menu_categories[0].name.toLowerCase() == category));
+    }
+
     return (
         <div id="products-post">
             <div className="container">
@@ -16,22 +45,20 @@ const Menu = () => {
                 <div className="row">
                     <div className="filters col-md-12 col-xs-12">
                         <ul id="filters">
-                            <li><span className="filter" data-filter="all">All</span></li>
-                            <li><span className="filter" data-filter=".food">Food</span></li>
-                            <li><span className="filter" data-filter=".drinks">Drinks</span></li>
-                            <li><span className="filter" data-filter=".dessert">Dessert</span></li>
+                            {
+                                menuCategories.map(category => {
+                                    return <li key={category.id} onClick={changeCategory}><span className="filter" id={category.name.toLowerCase()}>{category.name}</span></li>
+                                })
+                            }
                         </ul>
                     </div>
                 </div>
                 <div className="row" id="Container">
-                    <MenuItem category="food" name="Pizza" image="pizza.jpg" />
-                    <MenuItem category="food" name="Wings" image="buffalo-chicken-dip.jpg" />
-                    <MenuItem category="food" name="Buffalo Chicken Dip" image="buffalo-chicken-dip.jpg" />
-                    <MenuItem category="drinks" name="Beer" image="buffalo-chicken-dip.jpg" />
-                    <MenuItem category="drinks" name="Wine" image="buffalo-chicken-dip.jpg" />
-                    <MenuItem category="drinks" name="Silent Seven" image="buffalo-chicken-dip.jpg" />
-                    <MenuItem category="dessert" name="Cookies" image="buffalo-chicken-dip.jpg" />
-                    <MenuItem category="dessert" name="Brownies" image="buffalo-chicken-dip.jpg" />
+                    {
+                        selectedMenuItems.map(item => {
+                            return <MenuItem key={item.id} category={item.menu_categories[0].name.toLowerCase()} name={item.name} image={item.image[0].url} />
+                        })
+                    }
                 </div>  
             </div>
         </div>
