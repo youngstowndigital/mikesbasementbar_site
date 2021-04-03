@@ -1,14 +1,16 @@
 import React from 'react';
 
 const MenuItem = ({ category, name, image }) => {
+    const imageBaseUrl = process.env.IMAGE_BASE_URL;
+
     return (
         <div className={ `col-md-3 col-sm-6 ${category}` }>       
             <div>                
                 <div className="portfolio-thumb">
-                    <img src={ `http://localhost:1337${image}` } alt="" />
+                    <img src={ `${imageBaseUrl}${image}` } alt="" />
                     <div className="hover">
                         <div className="hover-iner">
-                            <a href={ `http://localhost:1337${image}` }><img src="images/open-icon.png" alt="" /></a>
+                            <a href={ `${imageBaseUrl}${image}` }><img src="images/open-icon.png" alt="" /></a>
                             <span>{ category }</span>
                         </div>
                     </div>
