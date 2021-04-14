@@ -20,10 +20,9 @@ const Nav = () => {
                         <div className="col-md-6">
                             <div className="main-menu">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="about-us.html">About</a></li>
-                                    <li><a href="products.html">Menu</a></li>
-                                    <li><a href="contact-us.html">Contact</a></li>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="#menu">Menu</a></li>
+                                    <li><a href="#footer">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
