@@ -32,34 +32,36 @@ const Menu = () => {
     }
 
     return (
-        <div id="products-post">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div id="product-heading">
-                            <h2>What's on the Menu?</h2>
-                            <img src="images/under-heading.png" alt="" />
+        <div id="menu">
+            <div id="products-post">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div id="product-heading">
+                                <h2>What's on the Menu?</h2>
+                                <img src="images/under-heading.png" alt="" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="filters col-md-12 col-xs-12">
-                        <ul id="filters">
-                            {
-                                menuCategories.map(category => {
-                                    return <li key={category.id} onClick={changeCategory}><span className="filter" id={category.name.toLowerCase()}>{category.name}</span></li>
-                                })
-                            }
-                        </ul>
+                    <div className="row">
+                        <div className="filters col-md-12 col-xs-12">
+                            <ul id="filters">
+                                {
+                                    menuCategories.map(category => {
+                                        return <li key={category.id} onClick={changeCategory}><span className="filter" id={category.name.toLowerCase()}>{category.name}</span></li>
+                                    })
+                                }
+                            </ul>
+                        </div>
                     </div>
+                    <div className="row" id="Container">
+                        {
+                            selectedMenuItems.map(item => {
+                                return <MenuItem key={item.id} category={item.menu_categories[0].name.toLowerCase()} name={item.name} image={item.image[0].url} />
+                            })
+                        }
+                    </div>  
                 </div>
-                <div className="row" id="Container">
-                    {
-                        selectedMenuItems.map(item => {
-                            return <MenuItem key={item.id} category={item.menu_categories[0].name.toLowerCase()} name={item.name} image={item.image[0].url} />
-                        })
-                    }
-                </div>  
             </div>
         </div>
     );
